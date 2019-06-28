@@ -2,8 +2,10 @@ package com.jaykapadia.nytimes.Activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.jaykapadia.nytimes.ViewModel.ArticleViewModel;
 import com.jaykapadia.nytimes.Model.Article;
 import com.jaykapadia.nytimes.R;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     article_adapter adapter;
     ArrayList<Article> articles = new ArrayList<>();
     ProgressBar p1;
+    Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +75,16 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        load();
-
-
+        View v = findViewById(R.id.constraint);
+        snackbar = Snackbar.make(v, "NO Internet Connection", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Retry", v1 -> load());
+        snackbar.setActionTextColor(Color.WHITE);
     }
 
     BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("app", "Network connectivity change");
+            load();
         }
     };
 
@@ -114,37 +119,41 @@ public class MainActivity extends AppCompatActivity
 
     private void load() {
         if (connectionAvailable()) {
-            model = ViewModelProviders.of(this).get(ArticleViewModel.class);
-            model.getArticleRepository().observe(this, section1 -> {
-                        if (section1 == null) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                            builder.setTitle("Error Fetching Data");
-                            builder.setMessage("Unknown error occured");
-                            builder.setPositiveButton("Retry", (dialog, which) -> load());
-                            builder.setNegativeButton("Cancel", ((dialog, which) -> dialog.dismiss()));
-                            builder.setCancelable(false);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                        } else {
-                            List<Article> articleList = section1.getResults();
-                            articles.addAll(articleList);
-                            adapter.notifyDataSetChanged();
-                            p1.setVisibility(View.GONE);
+            snackbar.dismiss();
+            if (adapter.getItemCount() == 0) {
+                p1.setVisibility(View.VISIBLE);
+                model = ViewModelProviders.of(this).get(ArticleViewModel.class);
+                model.getArticleRepository().observe(this, section1 -> {
+                            if (section1 == null) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("Error Fetching Data");
+                                builder.setMessage("Unknown error occured");
+                                builder.setPositiveButton("Ok", (dialog, which) -> {
+                                    dialog.dismiss();
+                                    finish();
+                                });
+                                builder.setCancelable(false);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                                p1.setVisibility(View.GONE);
+                            } else {
+                                List<Article> articleList = section1.getResults();
+                                articles.addAll(articleList);
+                                adapter.notifyDataSetChanged();
+                                p1.setVisibility(View.GONE);
+                            }
                         }
-                    }
-            );
+                );
+            }
         } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Connection Problem");
-            builder.setMessage("Please connect to the Internet");
-            builder.setPositiveButton("Retry", (dialog, which) -> load());
-            builder.setNegativeButton("Cancel", ((dialog, which) -> {
-                dialog.dismiss();
-                finish();
-            }));
-            builder.setCancelable(false);
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            p1.setVisibility(View.INVISIBLE);
+            if (adapter.getItemCount() == 0) {
+                View v = findViewById(R.id.constraint);
+                snackbar = Snackbar.make(v, "NO Internet Connection", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Retry", v1 -> load());
+                snackbar.setActionTextColor(Color.WHITE);
+                snackbar.show();
+            }
         }
     }
 
@@ -172,107 +181,107 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
         String section = null;
-        String title= null;
+        String title = null;
         switch (id) {
             case R.id.nav_arts:
                 section = "arts.json";
-                title="Arts";
+                title = "Arts";
                 break;
             case R.id.nav_auto:
                 section = "automobiles.json";
-                title="Automobiles";
+                title = "Automobiles";
                 break;
             case R.id.nav_books:
                 section = "books.json";
-                title="Books";
+                title = "Books";
                 break;
             case R.id.nav_business:
                 section = "business.json";
-                title="Business";
+                title = "Business";
                 break;
             case R.id.nav_fashion:
                 section = "fashion.json";
-                title="Fashion";
+                title = "Fashion";
                 break;
             case R.id.nav_food:
                 section = "food.json";
-                title="Food";
+                title = "Food";
                 break;
             case R.id.nav_health:
                 section = "health.json";
-                title="Health";
+                title = "Health";
                 break;
             case R.id.nav_insider:
                 section = "insider.json";
-                title="Insider";
+                title = "Insider";
                 break;
             case R.id.nav_magazine:
                 section = "magazine.json";
-                title="Magazine";
+                title = "Magazine";
                 break;
             case R.id.nav_national:
                 section = "national";
-                title="National";
+                title = "National";
                 break;
             case R.id.nav_nyregion:
                 section = "nyregion.json";
+                title="Ny Region";
                 break;
             case R.id.nav_obitu:
                 section = "obituaries.json";
-                title="Obituaries";
+                title = "Obituaries";
                 break;
             case R.id.nav_opinion:
                 section = "opinion.json";
-                title="Opinion";
+                title = "Opinion";
                 break;
             case R.id.nav_politics:
                 section = "politics.json";
-                title="Politics";
+                title = "Politics";
                 break;
             case R.id.nav_realestate:
                 section = "realestate.json";
-                title="Real Estate";
+                title = "Real Estate";
                 break;
             case R.id.nav_science:
                 section = "science.json";
-                title="Science";
+                title = "Science";
                 break;
             case R.id.nav_sports:
                 section = "sports.json";
-                title="Sports";
+                title = "Sports";
                 break;
             case R.id.nav_sundayreview:
                 section = "sundayreview.json";
-                title="Sunday Review";
+                title = "Sunday Review";
                 break;
             case R.id.nav_theater:
                 section = "theater.json";
-                title="Theater";
+                title = "Theater";
                 break;
             case R.id.nav_tmagazine:
                 section = "tmagazine.json";
-                title="T-Magazine";
+                title = "T-Magazine";
                 break;
             case R.id.nav_travel:
                 section = "travel.json";
-                title="Travel";
+                title = "Travel";
                 break;
             case R.id.nav_upshot:
                 section = "upshot.json";
-                title="Upshot";
+                title = "Upshot";
                 break;
             case R.id.nav_world:
                 section = "world.json";
-                title="World";
+                title = "World";
                 break;
         }
 
-        Intent m = new Intent(this,ArticleActivity.class);
-        m.putExtra("section",section);
-        m.putExtra("title",title);
+        Intent m = new Intent(this, ArticleActivity.class);
+        m.putExtra("section", section);
+        m.putExtra("title", title);
         startActivity(m);
 
 

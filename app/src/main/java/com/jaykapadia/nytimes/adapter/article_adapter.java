@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaykapadia.nytimes.Activities.WebViewActivity;
 import com.jaykapadia.nytimes.Model.Article;
 import com.jaykapadia.nytimes.R;
 import com.squareup.picasso.Picasso;
@@ -104,6 +105,12 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
                 sendIntent.putExtra(Intent.EXTRA_TEXT, share);
                 sendIntent.setType("text/plain");
                 context.startActivity(sendIntent);
+            });
+
+            itemView.setOnClickListener(v -> {
+                Intent my = new Intent(context.getApplicationContext(), WebViewActivity.class);
+                my.putExtra("url",articles.get(getAdapterPosition()).getUrl());
+                context.startActivity(my);
             });
         }
     }
