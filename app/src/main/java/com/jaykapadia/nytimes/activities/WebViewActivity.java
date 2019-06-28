@@ -1,4 +1,4 @@
-package com.jaykapadia.nytimes.Activities;
+package com.jaykapadia.nytimes.activities;
 
 import android.os.Bundle;
 import android.view.View;

@@ -1,8 +1,9 @@
-package com.jaykapadia.nytimes.ViewModel;
+package com.jaykapadia.nytimes.viewModel;
 
 
 import androidx.lifecycle.MutableLiveData;
-import com.jaykapadia.nytimes.Model.Section;
+
+import com.jaykapadia.nytimes.model.Section;
 
 import retrofit2.Call;
 import retrofit2.Callback;

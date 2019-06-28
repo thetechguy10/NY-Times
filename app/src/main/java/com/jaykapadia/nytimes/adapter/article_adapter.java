@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jaykapadia.nytimes.Activities.WebViewActivity;
-import com.jaykapadia.nytimes.Model.Article;
+import com.jaykapadia.nytimes.activities.WebViewActivity;
+import com.jaykapadia.nytimes.model.Article;
 import com.jaykapadia.nytimes.R;
 import com.squareup.picasso.Picasso;
 
@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class article_adapter extends RecyclerView.Adapter<article_adapter.holder> {
-    private Context context;
-    private ArrayList<Article> articles;
-    private String data;
+    private final Context context;
+    private final ArrayList<Article> articles;
+    private final String data;
 
     public article_adapter(Context ctx, ArrayList<Article> articles, String date) {
         this.context = ctx;
@@ -86,8 +86,11 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
     }
 
     class holder extends RecyclerView.ViewHolder {
-        TextView t1, t2, t3;
-        ImageView i1, i2;
+        final TextView t1;
+        final TextView t2;
+        final TextView t3;
+        final ImageView i1;
+        final ImageView i2;
 
         holder(@NonNull View itemView) {
             super(itemView);
@@ -109,7 +112,7 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
 
             itemView.setOnClickListener(v -> {
                 Intent my = new Intent(context.getApplicationContext(), WebViewActivity.class);
-                my.putExtra("url",articles.get(getAdapterPosition()).getUrl());
+                my.putExtra("url", articles.get(getAdapterPosition()).getUrl());
                 context.startActivity(my);
             });
         }

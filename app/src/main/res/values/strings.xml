@@ -2,9 +2,6 @@
     <string name="app_name">NYTimes</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">NY-Times</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="menu_arts">Arts</string>
     <string name="menu_automobiles">Automobiles</string>
@@ -15,7 +12,6 @@
     <string name="menu_health">Health</string>
     <string name="menu_insider">Insider</string>
     <string name="menu_magazine">Magazine</string>
-    <string name="menu_movies">Movies</string>
     <string name="menu_national">National</string>
     <string name="menu_nyregion">Nyregion</string>
     <string name="menu_obituaries">Obituaries</string>
@@ -30,4 +26,6 @@
     <string name="menu_travel">Travel</string>
     <string name="menu_upshot">Upshot</string>
     <string name="menu_world">World</string>
+    <string name="share">share</string>
+    <string name="icon">icon</string>
 </resources>

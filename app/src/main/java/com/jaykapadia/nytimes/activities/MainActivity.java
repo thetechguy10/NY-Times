@@ -1,16 +1,13 @@
-package com.jaykapadia.nytimes.Activities;
+package com.jaykapadia.nytimes.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-
-import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
@@ -22,8 +19,8 @@ import android.widget.ProgressBar;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.jaykapadia.nytimes.ViewModel.ArticleViewModel;
-import com.jaykapadia.nytimes.Model.Article;
+import com.jaykapadia.nytimes.viewModel.ArticleViewModel;
+import com.jaykapadia.nytimes.model.Article;
 import com.jaykapadia.nytimes.R;
 import com.jaykapadia.nytimes.adapter.article_adapter;
 
@@ -43,11 +40,10 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    ArticleViewModel model;
-    article_adapter adapter;
-    ArrayList<Article> articles = new ArrayList<>();
-    ProgressBar p1;
-    Snackbar snackbar;
+    private article_adapter adapter;
+    private final ArrayList<Article> articles = new ArrayList<>();
+    private ProgressBar p1;
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +77,7 @@ public class MainActivity extends AppCompatActivity
         snackbar.setActionTextColor(Color.WHITE);
     }
 
-    BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             load();
@@ -122,7 +118,7 @@ public class MainActivity extends AppCompatActivity
             snackbar.dismiss();
             if (adapter.getItemCount() == 0) {
                 p1.setVisibility(View.VISIBLE);
-                model = ViewModelProviders.of(this).get(ArticleViewModel.class);
+                ArticleViewModel model = ViewModelProviders.of(this).get(ArticleViewModel.class);
                 model.getArticleRepository().observe(this, section1 -> {
                             if (section1 == null) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -178,7 +174,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -227,7 +222,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_nyregion:
                 section = "nyregion.json";
-                title="Ny Region";
+                title = "Ny Region";
                 break;
             case R.id.nav_obitu:
                 section = "obituaries.json";

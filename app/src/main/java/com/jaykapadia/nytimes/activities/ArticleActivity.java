@@ -1,4 +1,4 @@
-package com.jaykapadia.nytimes.Activities;
+package com.jaykapadia.nytimes.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.jaykapadia.nytimes.ViewModel.ArticleViewModel;
-import com.jaykapadia.nytimes.Model.Article;
+import com.jaykapadia.nytimes.viewModel.ArticleViewModel;
+import com.jaykapadia.nytimes.model.Article;
 import com.jaykapadia.nytimes.R;
 import com.jaykapadia.nytimes.adapter.article_adapter;
 
@@ -32,19 +32,17 @@ import java.util.Objects;
 import java.util.TimeZone;
 
 public class ArticleActivity extends AppCompatActivity {
-    ArticleViewModel model;
-    article_adapter adapter;
-    ArrayList<Article> articles = new ArrayList<>();
-    ProgressBar p1;
-    String section;
-    Toolbar toolbar;
-    Snackbar snackbar;
+    private article_adapter adapter;
+    private final ArrayList<Article> articles = new ArrayList<>();
+    private ProgressBar p1;
+    private String section;
+    private Snackbar snackbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getIntent().getStringExtra("title"));
         if (getSupportActionBar() != null) {
@@ -69,7 +67,7 @@ public class ArticleActivity extends AppCompatActivity {
         snackbar.setActionTextColor(Color.WHITE);
     }
 
-    BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             load();
@@ -109,7 +107,7 @@ public class ArticleActivity extends AppCompatActivity {
             snackbar.dismiss();
             if (adapter.getItemCount() == 0) {
                 p1.setVisibility(View.VISIBLE);
-                model = ViewModelProviders.of(this).get(ArticleViewModel.class);
+                ArticleViewModel model = ViewModelProviders.of(this).get(ArticleViewModel.class);
                 model.getArticleRepository(section).observe(this, section1 -> {
                             if (section1 == null) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ArticleActivity.this);

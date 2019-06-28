@@ -1,4 +1,4 @@
-package com.jaykapadia.nytimes.Model;
+package com.jaykapadia.nytimes.model;
 
 import com.google.gson.annotations.SerializedName;
 

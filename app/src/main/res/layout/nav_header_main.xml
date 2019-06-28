@@ -13,8 +13,8 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/header" />
+        app:srcCompat="@drawable/header"
+        android:contentDescription="@string/icon" />
 </LinearLayout>
