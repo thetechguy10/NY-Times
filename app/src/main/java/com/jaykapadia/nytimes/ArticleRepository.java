@@ -25,6 +25,7 @@ public class ArticleRepository {
         apiCall = ApiService.getRetrofit().create(ApiCall.class);
     }
 
+
     public MutableLiveData<Section> getArticle(String section, String key) {
         final MutableLiveData<Section> articleData = new MutableLiveData<>();
         apiCall.getSection(section, key).enqueue(new Callback<Section>() {

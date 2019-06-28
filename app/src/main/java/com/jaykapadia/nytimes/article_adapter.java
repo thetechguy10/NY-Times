@@ -1,6 +1,7 @@
 package com.jaykapadia.nytimes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
     private Context context;
     private ArrayList<Article> articles;
     private String data;
+
     article_adapter(Context ctx, ArrayList<Article> articles, String date) {
         this.context = ctx;
         this.articles = articles;
@@ -41,38 +43,38 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
         holder.t1.setText(articles.get(position).getTitle());
         holder.t2.setText(articles.get(position).getAbstrac());
         holder.t3.setText(getTime(articles.get(position).getUpdated_date()));
-        if (articles.get(position).getMultimedia().size()==0){
+        if (articles.get(position).getMultimedia().size() == 0) {
             Picasso.get().load(R.drawable.error).into(holder.i1);
-        }else {
+        } else {
             Picasso.get().load(articles.get(position).getMultimedia().get(1).getUrl()).into(holder.i1);
         }
 
     }
 
-    private String getTime(String s){
-        String year = s.substring(0,4);
-        String month = s.substring(5,7);
-        String date = s.substring(8,10);
-        String hour = s.substring(11,13);
-        String minute = s.substring(14,16);
-        String second = s.substring(17,19);
+    private String getTime(String s) {
+        String year = s.substring(0, 4);
+        String month = s.substring(5, 7);
+        String date = s.substring(8, 10);
+        String hour = s.substring(11, 13);
+        String minute = s.substring(14, 16);
+        String second = s.substring(17, 19);
 
         SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-        String fi = year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
+        String fi = year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
 
         int hours = 0;
         try {
             Date date1 = format.parse(data);
             Date date2 = format.parse(fi);
             long mills = date1.getTime() - date2.getTime();
-            hours = (int) (mills/(1000 * 60 * 60));
+            hours = (int) (mills / (1000 * 60 * 60));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (hours<24){
-            return  hours+"h ago";
-        }else {
-            return hours /24+ "d ago";
+        if (hours < 24) {
+            return hours + "h ago";
+        } else {
+            return hours / 24 + "d ago";
         }
 
     }
@@ -83,8 +85,8 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
     }
 
     class holder extends RecyclerView.ViewHolder {
-        TextView t1, t2,t3;
-        ImageView i1;
+        TextView t1, t2, t3;
+        ImageView i1, i2;
 
         holder(@NonNull View itemView) {
             super(itemView);
@@ -93,6 +95,16 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
             t2 = itemView.findViewById(R.id.abstrac);
             t3 = itemView.findViewById(R.id.time);
             i1 = itemView.findViewById(R.id.icon);
+            i2 = itemView.findViewById(R.id.share);
+
+            i2.setOnClickListener(v -> {
+                String share = articles.get(getAdapterPosition()).getTitle() + "\n" + articles.get(getAdapterPosition()).getShort_url();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, share);
+                sendIntent.setType("text/plain");
+                context.startActivity(sendIntent);
+            });
         }
     }
 }

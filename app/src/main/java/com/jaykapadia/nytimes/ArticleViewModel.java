@@ -22,6 +22,8 @@ public class ArticleViewModel extends AndroidViewModel {
         return mutableLiveData;
     }
 
-
+    public LiveData<Section> getArticleRepository(String section){
+        return repository.getArticle(section,"mGJPB8xPlE6yGgXRGadGsVhGBZzS6n5Y");
+    }
 
 }

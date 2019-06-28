@@ -3,23 +3,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_arts"
+            android:title="@string/menu_arts" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_auto"
+            android:title="@string/menu_automobiles" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_books"
+            android:title="@string/menu_books" />
         <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:id="@+id/nav_business"
+            android:title="@string/menu_business" />
+        <item
+            android:id="@+id/nav_fashion"
+            android:title="@string/menu_fashion" />
+        <item
+            android:id="@+id/nav_food"
+            android:title="@string/menu_food" />
+        <item
+            android:id="@+id/nav_health"
+            android:title="@string/menu_health" />
+        <item
+            android:id="@+id/nav_insider"
+            android:title="@string/menu_insider" />
+        <item
+            android:id="@+id/nav_magazine"
+            android:title="@string/menu_magazine" />
+        <item
+            android:id="@+id/nav_national"
+            android:title="@string/menu_national" />
+        <item
+            android:id="@+id/nav_nyregion"
+            android:title="@string/menu_nyregion" />
+        <item
+            android:id="@+id/nav_obitu"
+            android:title="@string/menu_obituaries" />
+        <item
+            android:id="@+id/nav_opinion"
+            android:title="@string/menu_opinion" />
+        <item
+            android:id="@+id/nav_politics"
+            android:title="@string/menu_politics" />
+        <item
+            android:id="@+id/nav_realestate"
+            android:title="@string/menu_realestate" />
+        <item
+            android:id="@+id/nav_science"
+            android:title="@string/menu_science" />
+        <item
+            android:id="@+id/nav_sports"
+            android:title="@string/menu_sports" />
+        <item
+            android:id="@+id/nav_sundayreview"
+            android:title="@string/menu_sundayreview" />
+        <item
+            android:id="@+id/nav_theater"
+            android:title="@string/menu_theater" />
+        <item
+            android:id="@+id/nav_tmagazine"
+            android:title="@string/menu_tmagazine" />
+        <item
+            android:id="@+id/nav_travel"
+            android:title="@string/menu_travel" />
+        <item
+            android:id="@+id/nav_upshot"
+            android:title="@string/menu_upshot" />
+        <item
+            android:id="@+id/nav_world"
+            android:title="@string/menu_world" />
+
     </group>
 
 </menu>
