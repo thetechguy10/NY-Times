@@ -12,11 +12,12 @@ import com.jaykapadia.nytimes.model.Section;
 public class ArticleViewModel extends AndroidViewModel {
     private final MutableLiveData<Section> mutableLiveData;
     private final ArticleRepository repository;
+    private final static String key="mGJPB8xPlE6yGgXRGadGsVhGBZzS6n5Y";
 
     public ArticleViewModel(@NonNull Application application) {
         super(application);
         repository = ArticleRepository.getInstance();
-        mutableLiveData = repository.getArticle("technology.json", "mGJPB8xPlE6yGgXRGadGsVhGBZzS6n5Y");
+        mutableLiveData = repository.getArticle("technology.json", key);
 
     }
 
@@ -25,7 +26,7 @@ public class ArticleViewModel extends AndroidViewModel {
     }
 
     public LiveData<Section> getArticleRepository(String section) {
-        return repository.getArticle(section, "mGJPB8xPlE6yGgXRGadGsVhGBZzS6n5Y");
+        return repository.getArticle(section, key);
     }
 
 }
