@@ -1,8 +1,7 @@
-package com.jaykapadia.nytimes;
+package com.jaykapadia.nytimes.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaykapadia.nytimes.Model.Article;
+import com.jaykapadia.nytimes.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -25,7 +25,7 @@ public class article_adapter extends RecyclerView.Adapter<article_adapter.holder
     private ArrayList<Article> articles;
     private String data;
 
-    article_adapter(Context ctx, ArrayList<Article> articles, String date) {
+    public article_adapter(Context ctx, ArrayList<Article> articles, String date) {
         this.context = ctx;
         this.articles = articles;
         this.data = date;

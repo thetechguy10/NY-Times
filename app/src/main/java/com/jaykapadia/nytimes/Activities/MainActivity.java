@@ -1,4 +1,4 @@
-package com.jaykapadia.nytimes;
+package com.jaykapadia.nytimes.Activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -19,7 +19,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.google.android.material.navigation.NavigationView;
+import com.jaykapadia.nytimes.ViewModel.ArticleViewModel;
 import com.jaykapadia.nytimes.Model.Article;
+import com.jaykapadia.nytimes.R;
+import com.jaykapadia.nytimes.adapter.article_adapter;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -29,7 +32,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

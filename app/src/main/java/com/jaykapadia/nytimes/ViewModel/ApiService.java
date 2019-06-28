@@ -1,11 +1,11 @@
-package com.jaykapadia.nytimes;
+package com.jaykapadia.nytimes.ViewModel;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ApiService {
+class ApiService {
     private static Retrofit retrofit;
-    public static Retrofit getRetrofit(){
+    static Retrofit getRetrofit(){
         if (retrofit==null){
             retrofit = new Retrofit.Builder().baseUrl("https://api.nytimes.com")
                     .addConverterFactory(GsonConverterFactory.create())

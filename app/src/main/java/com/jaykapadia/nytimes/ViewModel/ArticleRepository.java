@@ -1,4 +1,4 @@
-package com.jaykapadia.nytimes;
+package com.jaykapadia.nytimes.ViewModel;
 
 
 import androidx.lifecycle.MutableLiveData;
@@ -8,11 +8,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ArticleRepository {
+@SuppressWarnings("ALL")
+class ArticleRepository {
 
     private static ArticleRepository repository;
 
-    public static ArticleRepository getInstance() {
+    static ArticleRepository getInstance() {
         if (repository == null) {
             repository = new ArticleRepository();
         }
@@ -21,12 +22,12 @@ public class ArticleRepository {
 
     private ApiCall apiCall;
 
-    public ArticleRepository() {
+    private ArticleRepository() {
         apiCall = ApiService.getRetrofit().create(ApiCall.class);
     }
 
 
-    public MutableLiveData<Section> getArticle(String section, String key) {
+    MutableLiveData<Section> getArticle(String section, String key) {
         final MutableLiveData<Section> articleData = new MutableLiveData<>();
         apiCall.getSection(section, key).enqueue(new Callback<Section>() {
             @Override

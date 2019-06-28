@@ -1,4 +1,4 @@
-package com.jaykapadia.nytimes;
+package com.jaykapadia.nytimes.ViewModel;
 
 import android.app.Application;
 

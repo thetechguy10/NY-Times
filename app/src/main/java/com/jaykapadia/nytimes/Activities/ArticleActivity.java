@@ -1,4 +1,4 @@
-package com.jaykapadia.nytimes;
+package com.jaykapadia.nytimes.Activities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -15,7 +15,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaykapadia.nytimes.ViewModel.ArticleViewModel;
 import com.jaykapadia.nytimes.Model.Article;
+import com.jaykapadia.nytimes.R;
+import com.jaykapadia.nytimes.adapter.article_adapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
